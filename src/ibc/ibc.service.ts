@@ -16,7 +16,8 @@ export class IbcService {
 
   public async parameters(height?: number): Promise<IbcParams> {
     try {
-      const result = await this.lcdService.ibcTransfer.parameters({ height })
+      const apikey = process.env.API_KEY
+      const result = await this.lcdService.ibcTransfer.parameters({ height, 'x-apikey': apikey })
       return result
     } catch (err) {
       this.logger.error({ err }, 'Error getting parameters for %s.', height)

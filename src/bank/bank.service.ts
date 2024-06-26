@@ -15,7 +15,8 @@ export class BankService {
 
   public async balance(address: AccAddress, height?: number): Promise<Coin[]> {
     try {
-      const [balance] = await this.lcdService.bank.balance(address, { height })
+      const apikey = process.env.API_KEY
+      const [balance] = await this.lcdService.bank.balance(address, { height, 'x-apikey': apikey })
 
       return Coin.fromTerraCoins(balance)
     } catch (err) {
@@ -27,7 +28,9 @@ export class BankService {
 
   public async total(height?: number): Promise<Coin[]> {
     try {
-      const [total] = await this.lcdService.bank.total({ height })
+      const apikey = process.env.API_KEY
+      
+      const [total] = await this.lcdService.bank.total({ height, 'x-apikey': apikey })
 
       return Coin.fromTerraCoins(total)
     } catch (err) {

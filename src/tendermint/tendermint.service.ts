@@ -17,7 +17,8 @@ export class TendermintService {
 
   public async nodeInfo(height?: number): Promise<NodeInfo> {
     try {
-      const data = (await this.lcdService.tendermint.nodeInfo({ height })) as any
+      const apikey = process.env.API_KEY
+      const data = (await this.lcdService.tendermint.nodeInfo({ height, 'x-apikey': apikey})) as any
 
       return {
         id: data.default_node_info.default_node_id,
@@ -54,7 +55,8 @@ export class TendermintService {
 
   public async syncing(height?: number): Promise<boolean> {
     try {
-      return this.lcdService.tendermint.syncing({ height })
+      const apikey = process.env.API_KEY
+      return this.lcdService.tendermint.syncing({ height, 'x-apikey': apikey })
     } catch (err) {
       this.logger.error({ err }, 'Error getting the syncing mode.')
 
@@ -64,7 +66,8 @@ export class TendermintService {
 
   public async validatorSet(height?: number): Promise<ValidatorSet> {
     try {
-      const [validators] = await this.lcdService.tendermint.validatorSet(height)
+      const apikey = process.env.API_KEY
+      const [validators] = await this.lcdService.tendermint.validatorSet(height, {'x-apikey': apikey})
 
       return {
         validators: validators.map<DelegateValidator>((validator) => ({
@@ -83,7 +86,8 @@ export class TendermintService {
 
   public async blockInfo(height?: number): Promise<BlockInfo> {
     try {
-      const info = await this.lcdService.tendermint.blockInfo(height)
+      const apikey = process.env.API_KEY
+      const info = await this.lcdService.tendermint.blockInfo(height, {'x-apikey': apikey})
 
       info.block.last_commit.signatures.forEach((s) => {
         // terra.js should be fixed to return number

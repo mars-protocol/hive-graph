@@ -16,7 +16,8 @@ export class WasmService {
 
   public async codeInfo(codeID: number, height?: number): Promise<CodeInfo> {
     try {
-      const info = await this.lcdService.wasm.codeInfo(codeID, { height })
+      const apikey = process.env.API_KEY
+      const info = await this.lcdService.wasm.codeInfo(codeID, { height, 'x-apikey': apikey })
 
       return {
         code_hash: info.code_hash,
@@ -31,7 +32,8 @@ export class WasmService {
 
   public async contractInfo(contractAddress: string, height?: number): Promise<ContractInfo> {
     try {
-      const info = await this.lcdService.wasm.contractInfo(contractAddress, { height })
+      const apikey = process.env.API_KEY
+      const info = await this.lcdService.wasm.contractInfo(contractAddress, { height, 'x-apikey': apikey })
 
       return {
         code_id: info.code_id,
@@ -49,7 +51,8 @@ export class WasmService {
 
   public async contractQuery(contractAddress: string, query: Record<string, any>, height?: number): Promise<any> {
     try {
-      const data = await this.lcdService.wasm.contractQuery(contractAddress, query, { height })
+      const apikey = process.env.API_KEY
+      const data = await this.lcdService.wasm.contractQuery(contractAddress, query, { height, 'x-apikey': apikey })
 
       return data
     } catch (err: any) {
@@ -61,7 +64,8 @@ export class WasmService {
 
   public async parameters(height?: number): Promise<WasmParams> {
     try {
-      const parameters = await this.lcdService.wasm.parameters({ height })
+      const apikey = process.env.API_KEY
+      const parameters = await this.lcdService.wasm.parameters({ height, 'x-apikey': apikey })
 
       return parameters
     } catch (err) {

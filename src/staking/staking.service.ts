@@ -183,7 +183,8 @@ export class StakingService {
 
   public async pool(height?: number): Promise<StakingPool> {
     try {
-      const pool = await this.lcdService.staking.pool({ height })
+      const apikey = process.env.API_KEY
+      const pool = await this.lcdService.staking.pool({ height, 'x-apikey': apikey })
 
       return {
         bonded_tokens: Coin.fromTerraCoin(pool.bonded_tokens),
@@ -198,7 +199,8 @@ export class StakingService {
 
   public async parameters(height?: number): Promise<StakingParams> {
     try {
-      const params = await this.lcdService.staking.parameters({ height })
+      const apikey = process.env.API_KEY
+      const params = await this.lcdService.staking.parameters({ height, 'x-apikey': apikey })
 
       return {
         unbonding_time: params.unbonding_time.toString(),
