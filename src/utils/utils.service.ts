@@ -18,7 +18,6 @@ export class UtilsService {
     const { denom, amount } = coin
 
     try {
-  
       const tax = await this.lcdService.utils.calculateTax(new TerraCoin(denom, amount))
 
       return Coin.fromTerraCoin(tax)

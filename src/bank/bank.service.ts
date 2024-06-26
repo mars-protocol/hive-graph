@@ -29,9 +29,7 @@ export class BankService {
   public async total(height?: number): Promise<Coin[]> {
     try {
       const apikey = process.env.API_KEY
-      
       const [total] = await this.lcdService.bank.total({ height, 'x-apikey': apikey })
-
       return Coin.fromTerraCoins(total)
     } catch (err) {
       this.logger.error({ err }, 'Error getting the total supply of tokens in circulation for all denominations.')

@@ -1,4 +1,5 @@
-FROM node:lts-alpine
+FROM node:19.4-alpine
+RUN apk add g++ make py3-pip
 
 # Create app directory
 WORKDIR /usr/src/app

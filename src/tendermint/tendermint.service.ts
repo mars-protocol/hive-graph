@@ -18,7 +18,7 @@ export class TendermintService {
   public async nodeInfo(height?: number): Promise<NodeInfo> {
     try {
       const apikey = process.env.API_KEY
-      const data = (await this.lcdService.tendermint.nodeInfo({ height, 'x-apikey': apikey})) as any
+      const data = (await this.lcdService.tendermint.nodeInfo({ height, 'x-apikey': apikey })) as any
 
       return {
         id: data.default_node_info.default_node_id,
@@ -67,7 +67,7 @@ export class TendermintService {
   public async validatorSet(height?: number): Promise<ValidatorSet> {
     try {
       const apikey = process.env.API_KEY
-      const [validators] = await this.lcdService.tendermint.validatorSet(height, {'x-apikey': apikey})
+      const [validators] = await this.lcdService.tendermint.validatorSet(height, { 'x-apikey': apikey })
 
       return {
         validators: validators.map<DelegateValidator>((validator) => ({
@@ -87,7 +87,7 @@ export class TendermintService {
   public async blockInfo(height?: number): Promise<BlockInfo> {
     try {
       const apikey = process.env.API_KEY
-      const info = await this.lcdService.tendermint.blockInfo(height, {'x-apikey': apikey})
+      const info = await this.lcdService.tendermint.blockInfo(height, { 'x-apikey': apikey })
 
       info.block.last_commit.signatures.forEach((s) => {
         // terra.js should be fixed to return number
