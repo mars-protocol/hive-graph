@@ -14,8 +14,8 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 
 # Generate the Docker image tag by combining the version and the latest commit hash
 image_tag="${AWS_ECR_REPOSITORY_NAME}:${current_branch}-${latest_commit}"
-
-docker buildx build --platform linux/amd64,linux/arm64 --no-cache -t $image_tag .
+#docker buildx build --platform linux/amd64,linux/arm64 -t 073581867161.dkr.ecr.ap-southeast-1.amazonaws.com/hiveecr-global-aws-apsoutheast1:latest --push .
+docker build --no-cache -t $image_tag .
 
 image_uri="${AWS_ECR_REGISTRY_URI}/${image_tag}"
 
