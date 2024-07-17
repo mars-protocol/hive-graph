@@ -15,12 +15,12 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 # Generate the Docker image tag by combining the version and the latest commit hash
 image_tag="${AWS_ECR_REPOSITORY_NAME}:${current_branch}-${latest_commit}"
 
-sudo docker build --no-cache -t $image_tag .
+docker buildx build --platform linux/amd64,linux/arm64 --no-cache -t $image_tag .
 
 image_uri="${AWS_ECR_REGISTRY_URI}/${image_tag}"
 
-sudo docker tag $image_tag $image_uri
+docker tag $image_tag $image_uri
 
-sudo docker push $image_uri
+docker push $image_uri
 
 echo $image_uri
