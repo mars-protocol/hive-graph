@@ -50,6 +50,10 @@ Running the unit tests.
 
 Running the test coverage.
 
+## URL
+
+https://mainnet-osmosis-gql.marsprotocol.io/graphql, for other chains just swap out the chain name
+
 ## License
 
 This software is licensed under the MIT license. See [LICENSE](./LICENSE) for full disclosure.
